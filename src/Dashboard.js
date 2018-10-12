@@ -11,9 +11,15 @@ class Dashboard extends React.Component {
   }
   onAdoptPet(animalType) {
     if (animalType === 'cat') {
-      this.props.dispatch(deleteCat());
+      this.props.dispatch(deleteCat())
+      .then(() => {
+        this.props.dispatch(fetchCat());
+      }); 
     } else if (animalType === 'dog') {
       this.props.dispatch(deleteDog())
+      .then(() => {
+        this.props.dispatch(fetchDog());
+      });
     }
   }
   render() {
