@@ -1,39 +1,39 @@
 import React from 'react';
 import Pet from './components/Pet';
 import connect from 'react-redux/es/connect/connect';
-import { fetchCat } from "./actions/cat";
+import { fetchCat, deleteCat } from "./actions/cat";
+import { fetchDog, deleteDog } from "./actions/dog";
 
 class Dashboard extends React.Component {
-
-    componentDidMount() {
-        this.props.dispatch(fetchCat());
+  componentDidMount() {
+      this.props.dispatch(fetchDog());
+      this.props.dispatch(fetchCat());
+  }
+  onAdoptPet(animalType) {
+    if (animalType === 'cat') {
+      this.props.dispatch(deleteCat());
+    } else if (animalType === 'dog') {
+      this.props.dispatch(deleteDog())
     }
-
-    onAdoptPet() {
-    console.log('Button Clicked');
   }
   render() {
-    console.log(this.props);
-      // console.log('catToAdopt', this.props.catToAdopt)
-    // console.log('dogToAdopt', this.props.dogToAdopt)
     let catToAdopt = this.props.catData;
-
-
-    // let dogToAdopt = this.props.dogData;
+    let dogToAdopt = this.props.dogData;
     return (
       <div className="Dashboard">
         <h1>Petful</h1>
-          {(catToAdopt) && <Pet catToAdopt={catToAdopt} onAdoptPet={()=> this.onAdoptPet()}/>}
-        {/*<Pet dogToAdopt={dogToAdopt} onAdoptPet={()=> this.onAdoptPet()}/>*/}
+        {(catToAdopt) && <Pet catToAdopt={catToAdopt} onAdoptPet={animalType => this.onAdoptPet(animalType)}/>}
+        {(dogToAdopt) && <Pet dogToAdopt={dogToAdopt} onAdoptPet={animalType => this.onAdoptPet(animalType)}/>}
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-    return {
-        catData: state.catReducer.data
-    };
+  return {
+    catData: state.catReducer.data,
+    dogData: state.dogReducer.data
+  };
 }
 
 export default connect(mapStateToProps)(Dashboard);
