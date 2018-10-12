@@ -3,10 +3,12 @@ import React from 'react';
 export default function Pet(props) {
   let animalToAdopt;
   if (props.catToAdopt) {
-    animalToAdopt = props.catToAdopt;
+    animalToAdopt = props.catToAdopt.data;
   } else if (props.dogToAdopt) {
-    animalToAdopt = props.dogToAdopt;
+    animalToAdopt = props.dogToAdopt.data;
   }
+  console.log('Here', animalToAdopt);
+
   return (
     <section>
         <header>
