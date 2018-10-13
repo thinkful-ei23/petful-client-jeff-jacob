@@ -35,7 +35,7 @@ export const deleteCatError = err => ({
 export const fetchCat = () => async dispatch => {
     dispatch(fetchCatRequest())
     try {
-        const res = await axios.get(`${API_BASE_URL}/api/cat`);
+        const res = await axios.get(`${API_BASE_URL}api/cat`);
         dispatch(fetchCatSuccess(res));
     } catch (e) {
         dispatch(fetchCatError(e));
